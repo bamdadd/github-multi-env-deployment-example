@@ -40,7 +40,7 @@ jobs:
 
   deploy-prod:
     runs-on: ubuntu-latest
-    needs: deploy-qa
+    needs: build
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'PROD'
     steps:
       - name: Checkout code
