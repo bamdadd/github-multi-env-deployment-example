@@ -12,21 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: 'Get Previous tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-
-      - name: 'Get next minor version'
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
+      - uses: actions/checkout@v3
         with:
-          version: ${{ steps.previoustag.outputs.tag }}
+          fetch-depth: 0
+
+      - uses: rickstaa/action-get-semver@v1
+        id: get_semver
+        with:
+          bump_level: "minor"
+          
+      - name: Print current and next version
+        run: |
+          echo "Current version: ${{ steps.get_semver.outputs.current_version  }}"
+          echo "Next version: ${{ steps.get_semver.outputs.next_version }}"
 
       - name: Echo Dev Environment Info
         run: |
+          ls -la
           echo "Dev"
           echo "SHA: ${{ github.sha }}"
           echo ${{ steps.version.outputs.version }}
