@@ -17,6 +17,10 @@ jobs:
 
       - name: Echo Deploy Environment Info
         run: |
+          if [[ ! ${{ github.event.inputs.tag }} =~ ^qa- ]]; then
+            echo "Invalid tag name. Tag name must start with 'qa-'"
+            exit 1
+          fi
           echo "Deploying to QA environment..."
           echo "Using sha: ${{ github.sha }}"
 

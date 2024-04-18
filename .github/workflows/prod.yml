@@ -13,6 +13,10 @@ jobs:
 
       - name: Echo Deploy Environment Info
         run: |
+          if [[ ! ${{ github.event.inputs.tag }} =~ ^prod- ]]; then
+            echo "Invalid tag name. Tag name must start with 'prod-'"
+            exit 1
+          fi
           echo "Deploying to Prod environment..."
           echo "Using sha: ${{ github.sha }}"
       
