@@ -15,9 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Git Version
-        id: version
-        uses: codacy/git-version@2.7.1
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
+      - name: 'Get next minor version'
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${{ steps.previoustag.outputs.tag }}
 
       - name: Echo Dev Environment Info
         run: |
@@ -33,6 +39,6 @@ jobs:
           git config --local user.name "GitHub Action"
           git tag dev-${DATE_TIME}
           git push origin dev-${DATE_TIME}
-          git tag ${{ steps.version.outputs.version }}
-          git push origin ${{ steps.version.outputs.version }}
+          # git tag ${{ steps.version.outputs.version }}
+          # git push origin ${{ steps.version.outputs.version }}
 
