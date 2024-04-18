@@ -36,11 +36,8 @@ jobs:
 
       - name: Tag Deployment
         run: |
-          DATE_TIME=$(date +%Y%m%d%H%M%S)
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag dev-${DATE_TIME}
-          git push origin dev-${DATE_TIME}
-          # git tag ${{ steps.version.outputs.version }}
-          # git push origin ${{ steps.version.outputs.version }}
+          git tag dev-${{ steps.get_semver.outputs.next_version }}
+          git push origin dev-${{ steps.get_semver.outputs.next_version }}
 

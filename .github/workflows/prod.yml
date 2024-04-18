@@ -9,7 +9,10 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      
+      - uses: rickstaa/action-get-semver@v1
+        id: get_semver
 
       - name: Echo Deploy Environment Info
         run: |
@@ -18,8 +21,7 @@ jobs:
       
       - name: Tag Deployment
         run: |
-          DATE_TIME=$(date +%Y%m%d%H%M%S)
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag prod-${DATE_TIME}
-          git push origin prod-${DATE_TIME}
+          git tag ${{ steps.get_semver.outputs.next_version }}
+          git push ${{ steps.get_semver.outputs.next_version }}
