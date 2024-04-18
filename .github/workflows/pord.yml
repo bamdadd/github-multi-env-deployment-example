@@ -1,16 +1,7 @@
 name: Prod
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deploy environment (QA or Prod)'
-        required: true
-        default: 'QA'
-
 jobs:
   deploy-prod:
     runs-on: ubuntu-latest
