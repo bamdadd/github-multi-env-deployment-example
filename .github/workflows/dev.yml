@@ -30,4 +30,3 @@ jobs:
           git config --local user.name "GitHub Action"
           git tag dev-${DATE_TIME}
           git push origin dev-${DATE_TIME}
-
