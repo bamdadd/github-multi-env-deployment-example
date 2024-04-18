@@ -15,13 +15,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: version
-        run: echo "1.0.0" > version.txt
+      - name: Git Version
+        id: version
+        uses: codacy/git-version@2.7.1
 
       - name: Echo Dev Environment Info
         run: |
           echo "Dev"
           echo "SHA: ${{ github.sha }}"
+          echo ${{ steps.version.outputs.version }}
+
 
       - name: Tag Deployment
         run: |
@@ -30,3 +33,6 @@ jobs:
           git config --local user.name "GitHub Action"
           git tag dev-${DATE_TIME}
           git push origin dev-${DATE_TIME}
+          git tag ${{ steps.version.outputs.version }}
+          git push origin ${{ steps.version.outputs.version }}
+
