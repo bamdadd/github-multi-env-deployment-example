@@ -14,5 +14,4 @@ jobs:
 
       - name: Echo Deploy Environment Info
         run: |
-          echo "${{ github.event.inputs.environment }}"
           echo "SHA: ${{ github.sha }}"
