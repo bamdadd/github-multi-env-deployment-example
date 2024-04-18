@@ -1,0 +1,22 @@
+name: Prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy (e.g., qa-YYYYMMDDHHMMSS)'
+        required: true
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.tag }}
+
+      - name: Echo Deploy Environment Info
+        run: |
+          echo "Deploying to Prod environment..."
+          echo "Using tag: ${{ github.event.inputs.tag }}"

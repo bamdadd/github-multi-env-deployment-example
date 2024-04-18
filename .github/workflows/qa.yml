@@ -1,11 +1,11 @@
 name: QA
 
 on:
-  workflow_run:
-    workflows: [Dev]
-    types:
-      - completed
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy (e.g., dev-YYYYMMDDHHMMSS)'
+        required: true
 
 jobs:
   deploy-qa:
@@ -14,7 +14,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.tag }}
 
       - name: Echo Deploy Environment Info
         run: |
-          echo "SHA: ${{ github.sha }}"
+          echo "Deploying to QA environment..."
+          echo "Using tag: ${{ github.event.inputs.tag }}"
+
+      - name: Tag Deployment
+        run: |
+          DATE_TIME=$(date +%Y%m%d%H%M%S)
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag qa-${DATE_TIME}
+          git push origin qa-${DATE_TIME}
+  
