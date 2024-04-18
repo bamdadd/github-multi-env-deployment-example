@@ -1,0 +1,22 @@
+name: Dev
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Echo Dev Environment Info
+        run: |
+          echo "Dev"
+          echo "SHA: ${{ github.sha }}"
+

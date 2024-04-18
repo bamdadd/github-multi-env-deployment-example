@@ -1,0 +1,25 @@
+name: Dev
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deploy environment (QA or Prod)'
+        required: true
+        default: 'QA'
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'PROD'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Echo Deploy Environment Info
+        run: |
+          echo "${{ github.event.inputs.environment }}"
+          echo "SHA: ${{ github.sha }}"
