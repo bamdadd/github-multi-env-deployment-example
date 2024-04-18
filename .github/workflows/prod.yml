@@ -20,3 +20,11 @@ jobs:
         run: |
           echo "Deploying to Prod environment..."
           echo "Using tag: ${{ github.event.inputs.tag }}"
+      
+      - name: Tag Deployment
+        run: |
+          DATE_TIME=$(date +%Y%m%d%H%M%S)
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag prod-${DATE_TIME}
+          git push origin prod-${DATE_TIME}
