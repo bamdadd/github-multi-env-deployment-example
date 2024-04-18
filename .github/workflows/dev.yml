@@ -23,3 +23,11 @@ jobs:
           echo "Dev"
           echo "SHA: ${{ github.sha }}"
 
+      - name: Tag Deployment
+        run: |
+          DATE_TIME=$(date +%Y%m%d%H%M%S)
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag dev-${DATE_TIME}
+          git push origin dev-${DATE_TIME}
+
