@@ -2,3 +2,6 @@
 
 
 Go to Repo Settings -> Actions -> General -> Workflow Permissions  and select  `Read and write permissions`
+
+
+Using Semver
