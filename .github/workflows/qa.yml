@@ -6,7 +6,7 @@ on:
 jobs:
   deploy-qa:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_qa == 'QA'
+    if: github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout code
