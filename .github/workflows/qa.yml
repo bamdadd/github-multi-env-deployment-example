@@ -2,10 +2,10 @@ name: QA
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Tag to deploy (e.g., dev-YYYYMMDDHHMMSS)'
-        required: true
+    # inputs:
+    #   tag:
+    #     description: 'Tag to deploy (e.g., dev-YYYYMMDDHHMMSS)'
+    #     required: true
 
 jobs:
   deploy-qa:
@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.inputs.tag }}
+        # with:
+          # ref: ${{ github.event.inputs.tag }}
 
       - name: Echo Deploy Environment Info
         run: |
