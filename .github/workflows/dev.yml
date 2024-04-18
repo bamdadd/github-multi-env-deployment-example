@@ -19,7 +19,7 @@ jobs:
       - uses: rickstaa/action-get-semver@v1
         id: get_semver
         with:
-          bump_level: "minor"
+          bump_level: "patch"
           
       - name: Print current and next version
         run: |
