@@ -9,16 +9,23 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-    
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
+      - uses: rickstaa/action-get-semver@v1
+        id: get_semver
+        with:
+          bump_level: "patch"
+    
       - name: Echo Deploy Environment Info
         run: |
           echo "Deploying to Prod environment..."
           echo "Using sha: ${{ github.sha }}"
-      
-      - name: Tag Deployment
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-        
+          echo "Deploying version: ${{ steps.get_semver.outputs.next_version }}"
+
+      - name: Create a Release
+        uses: elgohr/Github-Release-Action@v5
+        with:
+          title: ${{ steps.get_semver.outputs.next_version }}
+          message: "**Full Changelog**: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/${{ steps.get_semver.outputs.current_version }}...${{ steps.get_semver.outputs.next_version }}"

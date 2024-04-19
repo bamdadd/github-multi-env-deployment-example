@@ -31,7 +31,7 @@ jobs:
           ls -la
           echo "Dev"
           echo "SHA: ${{ github.sha }}"
-          echo ${{ steps.version.outputs.version }}
+          echo ${{ steps.get_semver.outputs.next_version }}
 
 
       - name: Tag Deployment

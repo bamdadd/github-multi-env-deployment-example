@@ -13,10 +13,19 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - uses: rickstaa/action-get-semver@v1
+        id: get_semver
+        with:
+          bump_level: "patch"
       
       - name: Echo Deploy Environment Info
         run: |
           echo "Deploying to QA environment..."
           echo "Using sha: ${{ github.sha }}"
+          echo "Deploying version: ${{ steps.get_semver.outputs.next_version }}"
+          
   
