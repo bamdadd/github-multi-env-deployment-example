@@ -1,11 +1,8 @@
 name: QA
 
+run-name: Deploy to QA - ${{ inputs.tags }} by @${{ github.actor }}
 on:
   workflow_dispatch:
-    # inputs:
-    #   tag:
-    #     description: 'Tag to deploy (e.g., dev-YYYYMMDDHHMMSS)'
-    #     required: true
 
 jobs:
   deploy-qa:
