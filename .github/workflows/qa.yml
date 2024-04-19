@@ -23,6 +23,6 @@ jobs:
         run: |
           echo "Deploying to QA environment..."
           echo "Using sha: ${{ github.sha }}"
-          echo "Deploying version: ${{ steps.get_semver.outputs.next_version }}"
+          echo "Deploying version: ${{ steps.get_semver.outputs.current_version }}"
           
   
