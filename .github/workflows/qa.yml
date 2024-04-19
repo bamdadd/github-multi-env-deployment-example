@@ -1,6 +1,6 @@
 name: QA
 
-run-name: Deploy to QA - ${{ inputs.tags }} by @${{ github.actor }}
+run-name: Deploy to QA - ${{ github.ref_name }} by @${{ github.actor }}
 on:
   workflow_dispatch:
 
